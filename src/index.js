@@ -8,10 +8,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import "../node_modules/bootstrap/dist/css/bootstrap.css";
+import '../node_modules/react-toastify/dist/ReactToastify.css';
 import reducer from './store/reducer/reducer';
+import JobListReducer from './store/reducer/jobListReducer';
 
 const rootReducer = combineReducers({
-    red: reducer
+    red: reducer,
+    jobList: JobListReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

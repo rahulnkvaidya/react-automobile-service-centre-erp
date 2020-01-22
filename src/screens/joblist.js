@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
-import * as SearchJob from "../store/actions/searchAction";
+import * as JobListAction from "../store/actions/jobListAction";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { ToastContainer, toast } from "react-toastify";
 import { getPager } from "../components/pagination";
-
-const ComplexList = () => {
+import Logo from '../components/logo';
+const JobList = () => {
   toast.configure({
     autoClose: 8000,
     draggable: false
@@ -19,33 +19,32 @@ const ComplexList = () => {
   const ResultOrder = useCallback(() => {
     orderChange("desc");
     // newcp(pagination.nextPage);
-    dispatch(SearchJob.fetchSearchlist(pagination.nextPage, order));
+    dispatch(JobListAction.fetchJoblist(pagination.nextPage, order));
   });
   useEffect(() => {
-    dispatch(SearchJob.fetchSearchlist(0, order));
+    dispatch(JobListAction.fetchJoblist(1));
   }, [dispatch, fav]);
-  var fav = useSelector((state) => state.red);
+  var fav = useSelector((state) => state.jobList);
+  console.log(fav);
   useEffect(() => {
     detail(fav);
   }, [fav]);
   const ButtonNext = useCallback(() => {
     newcp(pagination.nextPage);
-    dispatch(SearchJob.fetchSearchlist(pagination.nextIndex, order));
+    dispatch(JobListAction.fetchJoblist(pagination.nextPage));
   });
   const ButtonPrev = useCallback(() => {
     newcp(pagination.previousPage);
-    dispatch(SearchJob.fetchSearchlist(pagination.previousIndex, order));
+    dispatch(JobListAction.fetchJoblist(pagination.previousPage));
   });
 
-  const deleteJob = useCallback((jobid) => {
-    dispatch(SearchJob.searchDelete(pagination.previousIndex, order, jobid));
-    toast("Delete Success = " + jobid, { containerId: "A" });
-  });
   if (_.isEmpty(data)) {
     return <div>loading..........</div>;
   } else {
-    var list = data.hits.hits;
-    var total = data.hits.total.value;
+    var list = data.data;
+    console.log(list);
+    var total = data.count;
+    console.log(total);
     var pagination = getPager(total, currentPage, 10);
     var shouldDisablePostButton = true;
     var shouldDisablenextButton = true;
@@ -90,24 +89,6 @@ const ComplexList = () => {
               >
                 Next
               </button>
-              <button
-                className="btn btn-success p-1 m-1"
-                onClick={() => ResultOrder()}
-              >
-                Order {order}
-              </button>
-              <span className="p-1">Total Page - {pagination.totalPages}</span>
-              <span className="p-1">
-                Total Result - {pagination.totalItems}
-              </span>
-              <span className="p-1">startIndex - {pagination.startIndex}</span>
-              <span className="p-1">endIndex - {pagination.endIndex}</span>
-              <span className="p-1">
-                previousIndex - {pagination.previousIndex}
-              </span>
-              <span className="p-1">
-                nextIndex - {pagination.nextIndex}
-              </span>
             </div>
           </div>
         </div>
@@ -123,19 +104,16 @@ const ComplexList = () => {
         <div className="col-12 mt-2">
           {list.map((person, index) => (
             <div className="row">
-              <div className="col-4 p-2">{person._id}</div>
               <div className="col-4 p-2">
-                {person._source.results.companyname}
+                {person._id}
+                <Logo>{person.logo}</Logo>
               </div>
-              <div className="col-2 p-2">{person._source.results.lastdate}</div>
-              <div className="col-2 p-2">
-                <button
-                  className="btn btn-secondary"
-                  onClick={() => deleteJob(person._id)}
-                >
-                  Delete
-                </button>
+              <div className="col-4 p-2">
+                {person.companyname},
+                <br /> Update time = {person.updated_at}
               </div>
+              <div className="col-2 p-2">{person.lastdate}</div>
+              <div className="col-2 p-2">{person.schedule}</div>
             </div>
           ))}
         </div>
@@ -144,4 +122,4 @@ const ComplexList = () => {
   }
 };
 
-export default ComplexList;
+export default JobList;

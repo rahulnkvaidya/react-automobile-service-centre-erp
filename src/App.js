@@ -3,8 +3,10 @@ import "./App.css";
 import { BrowserRouter, Route } from "react-router-dom";
 import Home from "./screens/home";
 import searchList from "./screens/searchList";
+import newjob from './screens/newjobs';
 import Header from "./components/header";
 import Footer from "./components/footer";
+import JobList from './screens/joblist';
 
 function App() {
   return (
@@ -12,7 +14,9 @@ function App() {
       <div className="container-fluid">
         <Header />
         <Route exact path="/" component={Home} />
+        <Route path="/joblist" component={JobList} />
         <Route path="/search" component={searchList} />
+        <Route path="/newjob" component={newjob} />
         <Footer />
       </div>
     </BrowserRouter>
