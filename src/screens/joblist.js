@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback } from "react";
 import * as JobListAction from "../store/actions/jobListAction";
+
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { ToastContainer, toast } from "react-toastify";
 import { getPager } from "../components/pagination";
 import Logo from '../components/logo';
+import EditButton from '../components/editButton';
 const JobList = () => {
   toast.configure({
     autoClose: 8000,
@@ -105,7 +107,8 @@ const JobList = () => {
           {list.map((person, index) => (
             <div className="row">
               <div className="col-4 p-2">
-                {person._id}
+              
+                <EditButton>{person._id}</EditButton>
                 <Logo>{person.logo}</Logo>
               </div>
               <div className="col-4 p-2">
