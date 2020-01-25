@@ -5,11 +5,6 @@ const header = () => {
     return (
         <div className="row">
       <div className="col-3">
-        <img
-          src={process.env.PUBLIC_URL + "/logo.png"}
-            className="img-fluid"
-            alt="Logo"
-        />
       </div>
       <div className="col-9">
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">

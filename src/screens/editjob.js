@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
-import {Editor, EditorState, RichUtils} from 'draft-js';
-
-import { Field, reduxForm, FieldArray, FormSection } from "redux-form";
+import axios from "axios";
+import { Field, reduxForm, FieldArray } from "redux-form";
 import * as JobListAction from "../store/actions/jobListAction";
 import { useSelector, useDispatch, connect } from "react-redux";
-import { Multiselect } from "multiselect-react-dropdown";
-import Category from "../data/category";
-import SampleTable from "../components/simpleTable";
 import { load as loadAccount } from "../store/editForm";
-import renderPosts from '../components/renderPosts';
+import renderPosts from "../components/renderPosts";
+import renderTextarea from "../components/renderTextarea";
+import categoryMultiselect from "../components/categoryMultiselect";
+import educationMultiselect from "../components/educationMultiselect";
+import { ToastContainer, toast } from "react-toastify";
+import CityAutoSuggest from '../components/cityautosuggest';
 
 let InitializeFromStateForm = (props) => {
- // console.log(props);
+  // data = formfield ////////
+  const [data, detail] = useState([]);
+  const [postsdata, postUpdate] = useState([]);
+  // console.log(props);
   const { handleSubmit, load, pristine, reset, submitting } = props;
   const dispatch = useDispatch();
   var jobid = props.match.params.jobid;
@@ -20,26 +24,33 @@ let InitializeFromStateForm = (props) => {
     dispatch(JobListAction.fetchJobDetail(jobid));
   }, [dispatch, fav]);
 
-  // data = formfield ////////
-  const [data, detail] = useState([]);
-  const [postsdata, postUpdate] = useState([]);
-
   //  get job detail form reducer ///////
   var fav = useSelector((state) => state.jobList);
-  useEffect(() => {
-    detail(fav);
-    postUpdate(fav.posts);
-  }, [fav]);
+   useEffect(() => {
+     detail(fav);
+   }, [fav]);
+  var jobLoad = () => {
+    load(data);
+  };
 
- // console.log(postsdata);
-
+  let FormSubmit = (values) => {
+    console.log(values);
+    // axios.post(`https://www.employmentnewsinindia.com/api/jobs/jobedit`, values)
+    // .then(function (response) {
+    //   console.log(response);
+    //   toast("Job Edit Sucess");
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    //   toast(error);
+    // });
+  };
   return (
     <div>
-      <h4>Enter your Contact Data</h4>
-      <SampleTable />
-      <form onSubmit={handleSubmit} initialValues={{ jobid: data.jobid }}>
+      <CityAutoSuggest/>
+      <form onSubmit={handleSubmit(FormSubmit)}>
         <div>
-          <button type="button" onClick={() => load(fav)}>
+          <button type="button" onClick={() => jobLoad()}>
             Load Account
           </button>
         </div>
@@ -50,7 +61,10 @@ let InitializeFromStateForm = (props) => {
               <div class="card-body bg-dark">
                 <div class="form-group row">
                   <div class="col-sm-8">
-                    <label for="jobid" class="col-12 col-form-label text-light  m-0 p-0">
+                    <label
+                      for="jobid"
+                      class="col-12 col-form-label text-light  m-0 p-0"
+                    >
                       Job Id
                     </label>
 
@@ -62,7 +76,7 @@ let InitializeFromStateForm = (props) => {
                     />
                   </div>
                   <div class="col-12">
-                    <FieldArray class="col-12" name="posts" component={renderPosts} />
+                    <FieldArray name="posts" component={renderPosts} />
                   </div>
                   <div class="col-sm-8">
                     <label
@@ -79,7 +93,10 @@ let InitializeFromStateForm = (props) => {
                     />
                   </div>
                   <div class="col-sm-12">
-                    <label for="official_url" class="col-12 col-form-label text-light">
+                    <label
+                      for="official_url"
+                      class="col-12 col-form-label text-light"
+                    >
                       Official Url
                     </label>
                     <Field
@@ -104,7 +121,10 @@ let InitializeFromStateForm = (props) => {
                     />
                   </div>
                   <div class="col-sm-12">
-                    <label for="applyOnlineLink" class="col-12 col-form-label text-light">
+                    <label
+                      for="applyOnlineLink"
+                      class="col-12 col-form-label text-light"
+                    >
                       Apply Online Link
                     </label>
                     <Field
@@ -115,7 +135,10 @@ let InitializeFromStateForm = (props) => {
                     />
                   </div>
                   <div class="col-sm-12">
-                    <label for="companyname" class="col-12 col-form-label text-light">
+                    <label
+                      for="companyname"
+                      class="col-12 col-form-label text-light"
+                    >
                       Advertisement No.
                     </label>
                     <Field
@@ -135,7 +158,7 @@ let InitializeFromStateForm = (props) => {
                     name="header"
                     type="text"
                     class="form-control text-light bg-dark"
-                    component="textarea"
+                    component={renderTextarea}
                     type="text"
                   />
                 </div>
@@ -143,12 +166,12 @@ let InitializeFromStateForm = (props) => {
                   <label for="Tag" class="col-form-label text-light m-0 p-0">
                     Full Description
                   </label>
-    
+
                   <Field
                     name="fulldescription"
                     type="text"
                     class="form-control text-light bg-dark"
-                    component="textarea"
+                    component={renderTextarea}
                     type="text"
                   />
                 </div>
@@ -160,14 +183,17 @@ let InitializeFromStateForm = (props) => {
                     type="text"
                     name="howToApply"
                     class="form-control text-light bg-dark"
-                    component="textarea"
+                    component={renderTextarea}
                     type="text"
                   />
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6">
-                    <label for="lastdate" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="lastdate"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Last Date
                     </label>
                     <Field
@@ -177,8 +203,11 @@ let InitializeFromStateForm = (props) => {
                       type="text"
                     />
                   </div>
-                  <div class="col-sm-6">
-                    <label for="companyname" class="col-form-label text-light m-0 p-0">
+                  <div class="col-sm-4">
+                    <label
+                      for="companyname"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Total Vacancy
                     </label>
                     <div class="row">
@@ -194,8 +223,11 @@ let InitializeFromStateForm = (props) => {
                   </div>
                 </div>
                 <div class="form-group row">
-                  <div class="col-sm-6">
-                    <label for="companyname" class="col-form-label text-light m-0 p-0">
+                  <div class="col-sm-4">
+                    <label
+                      for="companyname"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       City
                     </label>
                     <Field
@@ -205,8 +237,11 @@ let InitializeFromStateForm = (props) => {
                       type="text"
                     />
                   </div>
-                  <div class="col-sm-6">
-                    <label for="companyname" class="col-form-label text-light m-0 p-0">
+                  <div class="col-sm-4">
+                    <label
+                      for="companyname"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       State
                     </label>
                     <Field
@@ -219,20 +254,41 @@ let InitializeFromStateForm = (props) => {
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-12">
-                    <label for="companyname" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="companyname"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Education
                     </label>
+                    <Field
+                      name="edu"
+                      class="form-control text-light bg-dark"
+                      component={educationMultiselect}
+                      type="text"
+                    />
                   </div>
                   <div class="col-sm-12 mt-5">
-                    <label for="companyname" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="companyname"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Category
                     </label>
+                    <Field
+                      name="category"
+                      class="form-control text-light bg-dark"
+                      component={categoryMultiselect}
+                      type="text"
+                    />
                   </div>
                 </div>
 
                 <div class="form-group row">
                   <div class="col-sm-6">
-                    <label for="companyname" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="companyname"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Employment Notice For
                     </label>
                     <Field
@@ -243,7 +299,10 @@ let InitializeFromStateForm = (props) => {
                     />
                   </div>
                   <div class="col-sm-6">
-                    <label for="companyname" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="companyname"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Address
                     </label>
                     <Field
@@ -256,7 +315,10 @@ let InitializeFromStateForm = (props) => {
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6">
-                    <label for="companyname" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="companyname"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Pin Code
                     </label>
                     <Field
@@ -267,7 +329,10 @@ let InitializeFromStateForm = (props) => {
                     />
                   </div>
                   <div class="col-sm-6">
-                    <label for="companyname" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="companyname"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Salary
                     </label>
                     <Field
@@ -280,7 +345,10 @@ let InitializeFromStateForm = (props) => {
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-12">
-                    <label for="metaTitle" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="metaTitle"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Meta Title
                     </label>
                     <Field
@@ -294,7 +362,10 @@ let InitializeFromStateForm = (props) => {
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-12">
-                    <label for="metaDescription" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="metaDescription"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Meta Description
                     </label>
                     <Field
@@ -308,7 +379,10 @@ let InitializeFromStateForm = (props) => {
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-12">
-                    <label for="metaKeyword" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="metaKeyword"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Meta Keywords
                     </label>
                     <Field
@@ -323,7 +397,10 @@ let InitializeFromStateForm = (props) => {
 
                 <div class="form-group row">
                   <div class="col-sm-12">
-                    <label for="schedule" class="col-form-label text-light m-0 p-0">
+                    <label
+                      for="schedule"
+                      class="col-form-label text-light m-0 p-0"
+                    >
                       Schedule Job
                     </label>
                     <Field
@@ -334,6 +411,15 @@ let InitializeFromStateForm = (props) => {
                       type="text"
                     />
                   </div>
+                </div>
+                <div class="form-group row">
+                  <button
+                    type="submit"
+                    class=" btn btn-warning text-light"
+                    disabled={pristine || submitting}
+                  >
+                    Submit
+                  </button>
                 </div>
               </div>
             </div>

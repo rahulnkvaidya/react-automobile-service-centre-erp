@@ -1,14 +1,22 @@
-import React from 'react'
+import React from "react";
+import CKEditor from "ckeditor4-react";
 
-export default function renderTextarea({ input, label, type, meta: { touched, error } }) {
-    return (
-            <div class="form-group">
-              <label class="col-12 text-light col-form-label">{label}</label>
-              <div class="col-12">
-                <textarea  {...input}  class="form-control text-light bg-dark"  rows="5" type={type} placeholder={label} />
-                {touched && error && <span>{error}</span>}
-              </div>
-            </div>
-
-    )
+export default function renderTextarea({ input }) {
+ // console.log("input");
+ // console.log(input);
+  let onEditorChange = (evt) => {
+    var data = evt.editor.getData();
+   // console.log(data);
+    input.onChange(data);
+}
+  return (
+    <div class="col-12">
+      <CKEditor
+        data={input.value}
+        class="form-control text-light bg-dark"
+        onChange={evt => onEditorChange(evt)}
+        
+      />
+    </div>
+  );
 }
