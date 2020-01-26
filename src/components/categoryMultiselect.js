@@ -10,7 +10,8 @@ export default function categoryMultiselect({ input }) {
         selectedvalue.push({ name: values[key].category, cat: values[key].cat_url }) 
     });
     const onSelect = (optionsList, selectedItem) => {
-        input.onChange(selectedItem);
+      optionsList = [...selectedvalue, optionsList]
+        input.onChange([ ...values, { category: selectedItem.name, cat_url: selectedItem.id } ]);
     };
     const onRemove= (optionList, removedItem)=>  {
         var evens = _.reject(values,{category: removedItem.name})
