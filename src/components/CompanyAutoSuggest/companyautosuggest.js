@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import * as CompanySearchListAction from "../../store/actions/companySearchAction";
 import * as RatnaAction from "../../store/actions/ratnaAction";
-import Theam from "./Theam.css";
 import _ from "lodash";
 
 // Imagine you have a list of languages that you'd like to autosuggest.

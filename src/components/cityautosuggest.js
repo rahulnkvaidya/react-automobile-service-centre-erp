@@ -1,20 +1,50 @@
 import Autosuggest from "react-autosuggest";
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch, connect } from "react-redux";
+import * as CitySearchListAction from "../store/actions/cityAction";
+import * as RatnaAction from "../store/actions/ratnaAction";
+import _ from "lodash";
+
 // Imagine you have a list of languages that you'd like to autosuggest.
 
-let CityAutoSuggest = () => {
+let CityAutoSuggest = ({  input, label, type, meta: { touched, error } }) => {
+  const dispatch = useDispatch();
+  const invalue = input.value;
   const [value, valueChange] = useState('');
+  useEffect(() => {
+    valueChange(invalue);
+  }, [input.value]);
+  //
   const [suggestions, suggestionsChange] = useState([]);
-  const languages = [
-    {
-      name: "C",
-      year: 1972
-    },
-    {
-      name: "Elm",
-      year: 2012
-    }
-  ];
+  const [companyList, updateList] = useState([]);
+  const [ratnalist, updateRatna] = useState([]);
+  const [ratnasugg, Updateratnasugg] = useState("");
+
+  var fav = useSelector((state) => state.cityData);
+ // var ratna = useSelector((state) => state.ratna);
+console.log(fav)
+  useEffect(() => {
+    updateList(fav);
+  }, [fav]);
+  // useEffect(() => {
+  //   updateRatna(ratna);
+  // }, [ratna]);
+//   useEffect(() => {
+// //    console.log(ratnalist);
+//     const ratnafir = ratnalist[0]
+//     const rat = _.valuesIn(ratnafir, suggestions);
+//     Updateratnasugg(rat[2]);
+//   }, [ratnalist]);
+
+  var onSelectSugg = (
+    event,
+    { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }
+  ) => {
+  //  console.log(suggestion.companyname)
+    dispatch(RatnaAction.RatnaSearch(suggestion.companyname));
+  };
+  //console.log(companyList);
+  const languages = companyList;
 
   // Teach Autosuggest how to calculate suggestions for any given input value.
   const getSuggestions = (value) => {
@@ -24,22 +54,28 @@ let CityAutoSuggest = () => {
     return inputLength === 0
       ? []
       : languages.filter(
-          (lang) => lang.name.toLowerCase().slice(0, inputLength) === inputValue
+          (lang) =>
+            lang.companyname.toLowerCase().slice(0, inputLength) === inputValue
         );
   };
 
   // When suggestion is clicked, Autosuggest needs to populate the input
   // based on the clicked suggestion. Teach Autosuggest how to calculate the
   // input value for every given suggestion.
-  const getSuggestionValue = (suggestion) => suggestion.name;
+  const getSuggestionValue = (suggestion) => suggestion.companyname;
 
   // Use your imagination to render suggestions.
-  const renderSuggestion = (suggestion) => <div>{suggestion.name}</div>;
+  const renderSuggestion = (suggestion) => <div>{suggestion.companyname}</div>;
 
   var onChange = (event, { newValue }) => {
-    valueChange(newValue);
-  };
+    console.log(newValue)
+    dispatch(CitySearchListAction.fetchCitylist(newValue));
 
+  //  console.log("new value =" + newValue);
+    valueChange(newValue);
+    input.onChange(newValue);
+  };
+  
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
   var onSuggestionsFetchRequested = ({ value }) => {
@@ -55,21 +91,28 @@ let CityAutoSuggest = () => {
 
   // Autosuggest will pass through all these props to the input.
   const inputProps = {
-    placeholder: "Type a programming language",
+    placeholder: "Company Name",
     value,
     onChange: onChange
   };
 
   // Finally, render it!
   return (
-    <Autosuggest
-      suggestions={suggestions}
-      onSuggestionsFetchRequested={onSuggestionsFetchRequested}
-      onSuggestionsClearRequested={onSuggestionsClearRequested}
-      getSuggestionValue={getSuggestionValue}
-      renderSuggestion={renderSuggestion}
-      inputProps={inputProps}
-    />
+    <div col-12>
+    <div style={{ color: "red", padding: "10px"}}>{ratnasugg}</div>
+      <Autosuggest
+        // theme={Theam}
+        suggestions={suggestions}
+        onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={onSuggestionsClearRequested}
+        getSuggestionValue={getSuggestionValue}
+        renderSuggestion={renderSuggestion}
+        inputProps={inputProps}
+        onSuggestionSelected={onSelectSugg}
+      />
+      
+    </div>
   );
 };
+
 export default CityAutoSuggest;

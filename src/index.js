@@ -13,7 +13,8 @@ import reducer from './store/reducer/reducer';
 import JobListReducer from './store/reducer/jobListReducer';
 import EditForm from './store/editForm';
 import companySearchReducer from './store/reducer/companySearchReducer';
-import ratnaReducer from './store/reducer/ratnaReducer'
+import ratnaReducer from './store/reducer/ratnaReducer';
+import cityReducer from './store/reducer/cityReducer';
 import { reducer as reduxFormReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
     jobList: JobListReducer,
     form: reduxFormReducer,
     companySearch: companySearchReducer,
-    ratna: ratnaReducer
+    ratna: ratnaReducer,
+    cityData:cityReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

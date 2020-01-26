@@ -3,7 +3,6 @@ import axios from "axios";
 import { Field, reduxForm, FieldArray, formValueSelector } from "redux-form";
 import * as JobListAction from "../store/actions/jobListAction";
 import { useSelector, useDispatch, connect } from "react-redux";
-import { load as loadAccount } from "../store/editForm";
 import renderPosts from "../components/renderPosts";
 import renderTextarea from "../components/renderTextarea";
 import categoryMultiselect from "../components/categoryMultiselect";
@@ -11,12 +10,14 @@ import educationMultiselect from "../components/educationMultiselect";
 import { ToastContainer, toast } from "react-toastify";
 import CityAutoSuggest from "../components/cityautosuggest";
 import Companyautosuggest from "../components/CompanyAutoSuggest/companyautosuggest";
+import _ from "lodash";
 
 let InitializeFromStateForm = (props) => {
   // console.log(props);
   // data = formfield ////////
   const [data, detail] = useState([]);
-
+  const [eduval, eduvalUpdate] = useState("");
+  const [catval, catvalUpdate] = useState("");
   const {
     autofill,
     handleSubmit,
@@ -30,65 +31,67 @@ let InitializeFromStateForm = (props) => {
     edu,
     category,
     city,
-    states
+    states,
+    st
   } = props;
-console.log(edu)
-  const titleUpdate = () => {
+  useEffect(() => {
+    eduvalUpdate(edu);
+  }, [edu]);
+  useEffect(() => {
+    catvalUpdate(category);
+  }, [category]);
+  console.log('st =', props);
+  
+  const createMeta = () => {
     var title = companyname + " recruits " + employmentnotice;
-    autofill("metaTitle", title);
-  };
-  const setDescription = () => {
-    var description = companyname +
-      " invites application for the post of " + employmentnotice +
-      " and last date to apply is " + 
-      lastdate;
-      autofill("metadescription", description);
-  }
-  const setKeywords = () => {
-    
 
-    var edukey = [];
-    var i = 1;
-    // edu.forEach((e: any) => {
-    //   edukey.push(e.category);
-    //   console.log(edukey);
-      
-    //   console.log(edu.length);
-    //   if (edu.length == i) {
-    //     ////////category
-    //     var cat = category;
-    //     var catkey = [];
-    //     var j = 1;
-    //     cat.forEach((ej: any) => {
-    //       catkey.push(ej.category);
-    //       console.log(catkey);
-          
-    //       console.log(cat.length);
-    //       if (cat.length == j) {
-    //         ////////
-    //         var keywords =
-    //           companyname +
-    //           ", " +
-    //           employmentnotice +
-    //           ", " +
-    //           edukey +
-    //           ", " +
-    //           catkey +
-    //           ", " +
-    //           city +
-    //           ", " +
-    //           states;
-          
-    //         autofill("metaKeywords", keywords);
-    //         //////////
-    //       }
-    //       j++;
-    //     });
-    //     //////////
-    //   }
-    //   i++;
-    // });
+    var description =
+      companyname +
+      " invites application for the post of " +
+      employmentnotice +
+      " and last date to apply is " +
+      lastdate;
+    ////////////////// edu ///
+  var edus = [];
+  var edustring = "";
+  if (eduval === undefined) {
+  } else {
+    Object.keys(eduval).map(function(key, index) {
+      edus.push(edu[key].category);
+    });
+    edustring = edus.join();
   }
+//  console.log(edustring);
+  ////////////////////////
+      ////////////////// edu ///
+  var cats = [];
+  var catstring = "";
+  if (catval === undefined) {
+  } else {
+    Object.keys(catval).map(function(key, index) {
+      edus.push(category[key].category);
+    });
+    catstring = cats.join();
+  }
+//  console.log(edustring);
+  ////////////////////////
+    var keywords =
+      companyname +
+      ", " +
+      employmentnotice +
+      ", " +
+        edustring +
+      ", " +
+         catstring +
+      ", " +
+      city +
+      ", " +
+      states;
+    autofill("metaTitle", title);
+    autofill("metaDescription", description);
+    autofill("metaKeyword", keywords);
+  };
+
   const totalvacancyUpdate = () => {};
   const setEmploymentNoticeFor = () => {
     autofill("metaTitle", "rahul");
@@ -107,7 +110,7 @@ console.log(edu)
   }, [fav]);
 
   let FormSubmit = (values) => {
-    console.log(values);
+    console.log('form Submit = ', values);
     // axios.post(`https://www.employmentnewsinindia.com/api/v2/jobsave`, values)
     // .then(function (response) {
     //   console.log(response);
@@ -386,6 +389,7 @@ console.log(edu)
                     />
                   </div>
                 </div>
+                <button onClick={createMeta}>Create Meta</button>
                 <div class="form-group row">
                   <div class="col-sm-12">
                     <label
@@ -483,13 +487,20 @@ InitializeFromStateForm = reduxForm({
 
 // You have to connect() to any reducers that you wish to connect to yourself
 InitializeFromStateForm = connect((state) => {
-  const { official_url, companyname, posts, city, states, employmentnotice, lastdate, edu, category } = selector(
+  const states = selector(state, 'state');
+  const { official_url,
+  companyname,
+  posts,
+  city,
+  employmentnotice,
+  lastdate,
+  edu,
+  category} = selector(
     state,
     "official_url",
     "companyname",
     "posts",
     "city",
-    "state",
     "employmentnotice",
     "lastdate",
     "edu",
@@ -500,12 +511,13 @@ InitializeFromStateForm = connect((state) => {
     companyname,
     posts,
     city,
-    states,
     employmentnotice,
     lastdate,
     edu,
-    category
+    category,
+    states
   };
+  
 })(InitializeFromStateForm);
 
 export default InitializeFromStateForm;
