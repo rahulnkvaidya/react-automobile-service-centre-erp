@@ -4,9 +4,8 @@ import { NavLink } from "react-router-dom";
 const header = () => {
     return (
         <div className="row">
-      <div className="col-3">
-      </div>
-      <div className="col-9">
+
+      <div className="col-12">
         <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
           <ul className="navbar-nav">
             <li className="nav-item">

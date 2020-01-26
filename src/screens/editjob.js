@@ -10,6 +10,7 @@ import categoryMultiselect from "../components/categoryMultiselect";
 import educationMultiselect from "../components/educationMultiselect";
 import { ToastContainer, toast } from "react-toastify";
 import CityAutoSuggest from '../components/cityautosuggest';
+import Companyautosuggest from "../components/CompanyAutoSuggest/companyautosuggest";
 
 let InitializeFromStateForm = (props) => {
   // data = formfield ////////
@@ -47,7 +48,6 @@ let InitializeFromStateForm = (props) => {
   };
   return (
     <div>
-      <CityAutoSuggest/>
       <form onSubmit={handleSubmit(FormSubmit)}>
         <div>
           <button type="button" onClick={() => jobLoad()}>
@@ -89,6 +89,12 @@ let InitializeFromStateForm = (props) => {
                       name="companyname"
                       class="form-control text-light bg-dark"
                       component="input"
+                      type="text"
+                    />
+                    <Field
+                      name="companyname"
+                      class="form-control text-light bg-dark"
+                      component={Companyautosuggest}
                       type="text"
                     />
                   </div>

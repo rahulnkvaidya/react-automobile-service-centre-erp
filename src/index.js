@@ -12,13 +12,17 @@ import '../node_modules/react-toastify/dist/ReactToastify.css';
 import reducer from './store/reducer/reducer';
 import JobListReducer from './store/reducer/jobListReducer';
 import EditForm from './store/editForm';
+import companySearchReducer from './store/reducer/companySearchReducer';
+import ratnaReducer from './store/reducer/ratnaReducer'
 import { reducer as reduxFormReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
     EditForm,
     red: reducer,
     jobList: JobListReducer,
-    form: reduxFormReducer
+    form: reduxFormReducer,
+    companySearch: companySearchReducer,
+    ratna: ratnaReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
