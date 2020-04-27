@@ -35,16 +35,16 @@ let InitializeFromStateForm = (props) => {
   };
 
   let FormSubmit = (values) => {
-    console.log(values);
-    // axios.post(`https://www.employmentnewsinindia.com/api/jobs/jobedit`, values)
-    // .then(function (response) {
-    //   console.log(response);
-    //   toast("Job Edit Sucess");
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    //   toast(error);
-    // });
+  //  console.log(values);
+    axios.post(`https://www.employmentnewsinindia.com/api/jobs/jobedit`, values)
+    .then(function (response) {
+      console.log(response);
+      toast("Job Edit Sucess");
+    })
+    .catch(function (error) {
+      console.log(error);
+      toast(error);
+    });
   };
   return (
     <div>
@@ -75,9 +75,7 @@ let InitializeFromStateForm = (props) => {
                       type="text"
                     />
                   </div>
-                  <div class="col-12">
-                    <FieldArray name="posts" component={renderPosts} />
-                  </div>
+                  
                   <div class="col-sm-8">
                     <label
                       for="companyname"
@@ -155,7 +153,9 @@ let InitializeFromStateForm = (props) => {
                     />
                   </div>
                 </div>
-
+                <div class="col-12">
+                    <FieldArray name="posts" component={renderPosts} />
+                  </div>
                 <div class="col-sm-12">
                   <label for="Tag" class="col-form-label text-light m-0 p-0">
                     Header

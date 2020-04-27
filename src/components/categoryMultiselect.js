@@ -6,12 +6,13 @@ import _ from 'lodash'
 export default function categoryMultiselect({ input }) {
     const values = input.value;
     let selectedvalue = [];
-    Object.entries(values).map((value, key) => {
-        selectedvalue.push({ name: values[key].category, cat: values[key].cat_url }) 
+    Object.keys(values).map((key, index) => {
+        selectedvalue.push({ name: values[key].category, id: values[key].cat_url }) 
     });
     const onSelect = (optionsList, selectedItem) => {
+      console.log(selectedvalue);
       optionsList = [...selectedvalue, optionsList]
-        input.onChange([ ...values, { category: selectedItem.name, cat_url: selectedItem.id } ]);
+        input.onChange([ ...values, { category: selectedItem.name, cat_url: selectedItem.cat } ]);
     };
     const onRemove= (optionList, removedItem)=>  {
         var evens = _.reject(values,{category: removedItem.name})
@@ -20,10 +21,11 @@ export default function categoryMultiselect({ input }) {
   return (
     <Multiselect
       options={category} // Options to display in the dropdown
-      selectedvalues={selectedvalue} // Preselected value to persist in dropdown
+      displayValue="name" // Property name to display in the dropdown options
+      selectedValues={selectedvalue} // Preselected value to persist in dropdown
       onSelect={onSelect} // Function will trigger on select event
       onRemove={onRemove} // Function will trigger on remove event
-      displayValue="name" // Property name to display in the dropdown options
+      
     />
   );
 }

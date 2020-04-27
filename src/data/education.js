@@ -31,6 +31,7 @@ const education = [
     { name: "ME/M.Tech", id: 'memtech' },
     { name: "MBBS", id: 'mbbs' },
     { name: "ITI/ Certificate Courses", id: 'iti' },
+    { name: "Retired Person", id: 'retired-person' }
 ]
 
 export default education;

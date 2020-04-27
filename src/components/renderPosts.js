@@ -1,10 +1,16 @@
 import React from "react";
-import { Field, reduxForm, FieldArray, FormSection } from "redux-form";
+import { Field } from "redux-form";
 import renderInput from "./renderInput";
 import renderTextarea from "./renderTextarea";
 
-export default function ({ fields, meta: { error, submitFailed } }) {
- // console.log(fields);
+let renderPosts = ({ fields, meta: { error, submitFailed } }) => {
+  // const dispatch = useDispatch();
+
+  // var postOnChange = (value) => {
+  //   console.log(value.target.value);
+  //   dispatch(PostAction.fetchPostChange(value.target.value));
+  // };
+
   return (
     <div class="col-12">
       <button
@@ -32,6 +38,7 @@ export default function ({ fields, meta: { error, submitFailed } }) {
                   class="col-12 form-control text-light bg-dark"
                   type="text"
                   component={renderInput}
+               //   onChange={(newValue) => postOnChange(newValue)}
                 />
               </div>
             </div>
@@ -83,4 +90,6 @@ export default function ({ fields, meta: { error, submitFailed } }) {
       ))}
     </div>
   );
-}
+};
+
+export default renderPosts;

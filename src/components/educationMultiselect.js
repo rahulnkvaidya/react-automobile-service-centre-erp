@@ -5,9 +5,11 @@ import _ from 'lodash'
 
 export default function educationMultiselect({ input }) {
     const values = input.value;
+  //  console.log(typeof(values))
     let selectedvalue = [];
-    Object.entries(values).map((value, key) => {
-        selectedvalue.push({ name: values[key].category, cat: values[key].cat_url }) 
+    Object.keys(values).map((key, index) => {
+   //   console.log(values[key]);
+        selectedvalue.push({ name: values[key].category, id: values[key].cat_url }) 
     });
     const onSelect = (optionsList, selectedItem) => {
         optionsList = [...selectedvalue, optionsList]
@@ -20,10 +22,11 @@ export default function educationMultiselect({ input }) {
   return (
     <Multiselect
       options={education} // Options to display in the dropdown
-      selectedvalues={selectedvalue} // Preselected value to persist in dropdown
-      onSelect={onSelect} // Function will trigger on select event
-      onRemove={onRemove} // Function will trigger on remove event
       displayValue="name" // Property name to display in the dropdown options
+      selectedValues={selectedvalue} // Preselected value to persist in dropdown
+      onSelect={onSelect} // Function will trigger on select event
+     onRemove={onRemove} // Function will trigger on remove event
+      
     />
   );
 }

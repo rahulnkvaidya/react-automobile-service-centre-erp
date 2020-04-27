@@ -15,6 +15,7 @@ import EditForm from './store/editForm';
 import companySearchReducer from './store/reducer/companySearchReducer';
 import ratnaReducer from './store/reducer/ratnaReducer';
 import cityReducer from './store/reducer/cityReducer';
+import postReducer from './store/reducer/postReducer';
 import { reducer as reduxFormReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
     form: reduxFormReducer,
     companySearch: companySearchReducer,
     ratna: ratnaReducer,
-    cityData:cityReducer
+    cityData: cityReducer,
+    post: postReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

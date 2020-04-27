@@ -10,14 +10,31 @@ import educationMultiselect from "../components/educationMultiselect";
 import { ToastContainer, toast } from "react-toastify";
 import CityAutoSuggest from "../components/cityautosuggest";
 import Companyautosuggest from "../components/CompanyAutoSuggest/companyautosuggest";
+import * as PostAction from "../store/actions/postAction";
 import _ from "lodash";
+import { title, description, keywords } from "../components/helperFunction";
 
 let InitializeFromStateForm = (props) => {
-  // console.log(props);
+  const dispatch = useDispatch();
+  // console.log(props.posts);
+  var initial = [
+    {
+      _id: "",
+      id: 1981,
+      companyname: "",
+      post: "",
+      edu: "",
+      pay: "",
+      age: ""
+    }
+  ];
   // data = formfield ////////
-  const [data, detail] = useState([]);
+  const [data, detail] = useState(initial);
   const [eduval, eduvalUpdate] = useState("");
   const [catval, catvalUpdate] = useState("");
+  const [post, postUpdate] = useState([]);
+  const [lastpost, lastpostUpdate] = useState("");
+
   const {
     autofill,
     handleSubmit,
@@ -32,85 +49,106 @@ let InitializeFromStateForm = (props) => {
     category,
     city,
     states,
-    st
+    posts
   } = props;
+  /////// post process ///
+
+  useEffect(() => {
+    lastpostUpdate(posts);
+  }, [posts]);
+  // console.log('posts =', posts)
+  useEffect(() => {
+    if (lastpost === undefined) {
+    } else {
+      //  console.log('po = ', post)
+      //  console.log('count =', )
+      var polength = lastpost.length - 1;
+      if (polength >= 0) {
+        //  console.log(polength)
+        if (lastpost[polength] === undefined) {
+        } else {
+          /// get last post for find in database
+          var pon = lastpost[polength];
+          var poname = pon.post;
+          //    console.log('last value 1 =', poname)
+          dispatch(PostAction.fetchPostlist(companyname, poname));
+        }
+      }
+    }
+  }, [lastpost]);
+
+  var po = useSelector((state) => state.post);
+  useEffect(() => {
+    detail(po);
+  }, [po]);
+ // console.log("post = ", po, data);
+
+  // if (post === undefined) {
+  // } else {
+  //   Object.keys(eduval).map(function(key, index) {
+  //     edus.push(edu[key].category);
+  //   });
+  //   edustring = edus.join();
+  // }
+  //// post process end /////////
   useEffect(() => {
     eduvalUpdate(edu);
   }, [edu]);
   useEffect(() => {
     catvalUpdate(category);
   }, [category]);
-  console.log('st =', props);
-  
+  // console.log('st =', props);
+  const autoPost = () => {
+    console.log(posts)
+    autofill("posts", [posts,{post: 'rahul', edu: 'rahul edu'}]);
+  }
   const createMeta = () => {
-    var title = companyname + " recruits " + employmentnotice;
-
-    var description =
-      companyname +
-      " invites application for the post of " +
-      employmentnotice +
-      " and last date to apply is " +
-      lastdate;
-    ////////////////// edu ///
-  var edus = [];
-  var edustring = "";
-  if (eduval === undefined) {
-  } else {
-    Object.keys(eduval).map(function(key, index) {
-      edus.push(edu[key].category);
-    });
-    edustring = edus.join();
-  }
-//  console.log(edustring);
-  ////////////////////////
-      ////////////////// edu ///
-  var cats = [];
-  var catstring = "";
-  if (catval === undefined) {
-  } else {
-    Object.keys(catval).map(function(key, index) {
-      edus.push(category[key].category);
-    });
-    catstring = cats.join();
-  }
-//  console.log(edustring);
-  ////////////////////////
-    var keywords =
-      companyname +
-      ", " +
-      employmentnotice +
-      ", " +
-        edustring +
-      ", " +
-         catstring +
-      ", " +
-      city +
-      ", " +
-      states;
-    autofill("metaTitle", title);
-    autofill("metaDescription", description);
-    autofill("metaKeyword", keywords);
+    autofill("metaTitle", title(companyname, employmentnotice));
+    autofill(
+      "metaDescription",
+      description(companyname, employmentnotice, lastdate)
+    );
+    autofill(
+      "metaKeyword",
+      keywords(
+        companyname,
+        employmentnotice,
+        edu,
+        category,
+        eduval,
+        catval,
+        city,
+        states
+      )
+    );
   };
-
   const totalvacancyUpdate = () => {};
   const setEmploymentNoticeFor = () => {
     autofill("metaTitle", "rahul");
   };
-  const dispatch = useDispatch();
-  var jobid = props.match.params.jobid;
-  //// fatch job by id
-  useEffect(() => {
-    dispatch(JobListAction.fetchJobDetail(jobid));
-  }, [dispatch, fav]);
+  let PostRander = (props) => {
+    var postsch = props.children;
+    if (postsch === null) {
+      return <div>null</div>;
+    } else {
+      return (
 
-  //  get job detail form reducer ///////
-  var fav = useSelector((state) => state.jobList);
-  useEffect(() => {
-    detail(fav);
-  }, [fav]);
-
+          <div className="col-12 mt-2 bg-white">
+            {postsch.map((person, index) => (
+              <div className="row border border-dark">
+                <div className="col-12 p-2">
+                  {person._id}
+                </div>
+                <div className="col-12 p-2">{person.post}</div>
+                <div className="col-12 p-2"><div dangerouslySetInnerHTML={{ __html: person.edu }}/></div>
+              </div>
+            ))}
+          </div>
+      );
+    }
+  };
   let FormSubmit = (values) => {
-    console.log('form Submit = ', values);
+    console.log("form Submit = ", values);
     // axios.post(`https://www.employmentnewsinindia.com/api/v2/jobsave`, values)
     // .then(function (response) {
     //   console.log(response);
@@ -124,14 +162,30 @@ let InitializeFromStateForm = (props) => {
   return (
     <div>
       <div class="row">
-        <div class="col-4 bg-dark mb-5"></div>
+        <div class="col-4 bg-dark mb-5">
+          <div className="col-12 mt-2">
+          <button
+          type="button"
+          class="btn btn-warning text-light float-right m-2"
+          onClick={autoPost}
+        >
+          Add Post
+        </button>
+            <PostRander>{data}</PostRander>
+          </div>
+        </div>
+
         <div class="col-8 bg-dark mb-5">
           <form onSubmit={handleSubmit(FormSubmit)}>
             <div class="card shadow">
               <div class="card-body bg-dark">
                 <div class="form-group row">
                   <div class="col-12">
-                    <FieldArray name="posts" component={renderPosts} />
+                    <FieldArray
+                      name="posts"
+                      props={category}
+                      component={renderPosts}
+                    />
                   </div>
                   <div class="col-sm-8">
                     <label
@@ -487,15 +541,17 @@ InitializeFromStateForm = reduxForm({
 
 // You have to connect() to any reducers that you wish to connect to yourself
 InitializeFromStateForm = connect((state) => {
-  const states = selector(state, 'state');
-  const { official_url,
-  companyname,
-  posts,
-  city,
-  employmentnotice,
-  lastdate,
-  edu,
-  category} = selector(
+  const states = selector(state, "state");
+  const {
+    official_url,
+    companyname,
+    posts,
+    city,
+    employmentnotice,
+    lastdate,
+    edu,
+    category
+  } = selector(
     state,
     "official_url",
     "companyname",
@@ -517,7 +573,6 @@ InitializeFromStateForm = connect((state) => {
     category,
     states
   };
-  
 })(InitializeFromStateForm);
 
 export default InitializeFromStateForm;
