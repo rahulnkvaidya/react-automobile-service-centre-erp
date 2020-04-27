@@ -6,6 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/rahulnkvaidya/eni2-admin-react.git"
   },
+  "homepage": "http://rahulnkvaidya.github.io/eni2-admin-react",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -34,7 +35,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
