@@ -1,4 +1,5 @@
 import axios from "axios";
+
 export const JOB_LIST = "JOB_LIST";
 export const JOB_DETAIL = "JOB_DETAIL";
 

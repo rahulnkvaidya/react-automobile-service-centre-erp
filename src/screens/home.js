@@ -70,74 +70,76 @@ const ComplexList = () => {
           draggable
           pauseOnHover
         />
-        <div className="row">
-          <div className="col-12 mb-2 mt-2">
-            <div className="col-12 p-1 border border-dark">
-              <button
-                onClick={() => ButtonPrev()}
-                disabled={shouldDisablePostButton}
-                className="btn btn-success p-1 m-1"
-              >
-                Previous
-              </button>
-              <span className="p-1">
-                Current Page - {pagination.currentPage}
-              </span>
-              <button
-                className="btn btn-success p-1 m-1"
-                disabled={shouldDisablenextButton}
-                onClick={() => ButtonNext()}
-              >
-                Next
-              </button>
-              <button
-                className="btn btn-success p-1 m-1"
-                onClick={() => ResultOrder()}
-              >
-                Order {order}
-              </button>
-              <span className="p-1">Total Page - {pagination.totalPages}</span>
-              <span className="p-1">
-                Total Result - {pagination.totalItems}
-              </span>
-              <span className="p-1">startIndex - {pagination.startIndex}</span>
-              <span className="p-1">endIndex - {pagination.endIndex}</span>
-              <span className="p-1">
-                previousIndex - {pagination.previousIndex}
-              </span>
-              <span className="p-1">
-                nextIndex - {pagination.nextIndex}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="col-12">
-          <div className="row text-light bg-dark">
-            <div className="col-4 p-2">Jobid</div>
-            <div className="col-4 p-2">Company Name</div>
-            <div className="col-2 p-2">Last Date</div>
-            <div className="col-2 p-2">Function</div>
-          </div>
-        </div>
-        <div className="col-12 mt-2">
-          {list.map((person, index) => (
-            <div className="row">
-              <div className="col-4 p-2">{person._id}</div>
-              <div className="col-4 p-2">
-                {person._source.results.companyname}
-              </div>
-              <div className="col-2 p-2">{person._source.results.lastdate}</div>
-              <div className="col-2 p-2">
+        <div className="col-12 shadow">
+          <div className="row">
+            <div className="col-12 mb-2 mt-2">
+              <div className="col-12 p-1 border border-dark">
                 <button
-                  className="btn btn-secondary"
-                  onClick={() => deleteJob(person._id)}
+                  onClick={() => ButtonPrev()}
+                  disabled={shouldDisablePostButton}
+                  className="btn btn-success p-1 m-1"
                 >
-                  Delete
+                  Previous
+              </button>
+                <span className="p-1">
+                  Current Page - {pagination.currentPage}
+                </span>
+                <button
+                  className="btn btn-success p-1 m-1"
+                  disabled={shouldDisablenextButton}
+                  onClick={() => ButtonNext()}
+                >
+                  Next
+              </button>
+                <button
+                  className="btn btn-success p-1 m-1"
+                  onClick={() => ResultOrder()}
+                >
+                  Order {order}
                 </button>
+                <span className="p-1">Total Page - {pagination.totalPages}</span>
+                <span className="p-1">
+                  Total Result - {pagination.totalItems}
+                </span>
+                <span className="p-1">startIndex - {pagination.startIndex}</span>
+                <span className="p-1">endIndex - {pagination.endIndex}</span>
+                <span className="p-1">
+                  previousIndex - {pagination.previousIndex}
+                </span>
+                <span className="p-1">
+                  nextIndex - {pagination.nextIndex}
+                </span>
               </div>
             </div>
-          ))}
+          </div>
+          <div className="col-12"><h1>Elastic Search Server</h1></div>
+          <div className="col-12">
+            <div className="row text-light bg-dark">
+              <div className="col-4 p-2">Jobid</div>
+              <div className="col-4 p-2">Company Name</div>
+              <div className="col-2 p-2">Last Date</div>
+              <div className="col-2 p-2">Function</div>
+            </div>
+          </div>
+          <div className="col-12 mt-2">
+            {list.map((person, index) => (
+              <div className="row">
+                <div className="col-4 p-2">{person._id}</div>
+                <div className="col-4 p-2">
+                  {person._source.results.companyname}
+                </div>
+                <div className="col-2 p-2">{person._source.results.lastdate}</div>
+                <div className="col-2 p-2">
+                  <button
+                    className="btn btn-secondary"
+                    onClick={() => deleteJob(person._id)}
+                  >
+                    Delete
+                </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     );

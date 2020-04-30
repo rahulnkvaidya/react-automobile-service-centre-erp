@@ -12,7 +12,7 @@ import EditJob from './screens/editjob';
 function App() {
   return (
     <BrowserRouter>
-      <div className="container-fluid">
+      <div className="container bg-light">
         <Header />
         <Route exact path="/" component={Home} />
         <Route path="/joblist" component={JobList} />

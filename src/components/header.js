@@ -1,16 +1,15 @@
 import React from 'react'
 import { NavLink } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const header = () => {
     return (
-        <div className="row">
-
-      <div className="col-12">
-        <nav className="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div className="row">
+        <nav className="navbar navbar-expand-sm bg-dark navbar-dark m-0 sticky-top m-2">
           <ul className="navbar-nav">
             <li className="nav-item">
               <NavLink className="nav-link" to="/">
-                Home
+              <FontAwesomeIcon icon="coffee" /> Home
               </NavLink>
               </li>
               <li className="nav-item">
@@ -40,8 +39,8 @@ const header = () => {
             </li>
           </ul>
         </nav>
+        <FontAwesomeIcon icon="coffee" />
       </div>
-    </div>
     )
 }
 

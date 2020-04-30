@@ -12,14 +12,18 @@ let renderPosts = ({ fields, meta: { error, submitFailed } }) => {
   // };
 
   return (
-    <div class="col-12">
-      <button
-        type="button"
-        class="btn btn-warning text-light float-right m-2"
-        onClick={() => fields.push({})}
-      >
-        Add Post
+    <div className="col-12 border border-primary round-circle m-1 p-1">
+      <div className="col-12">
+        <button
+          type="button"
+          class="btn btn-warning float-right m-2"
+          onClick={() => fields.push({})}
+        >
+          Add Post
       </button>
+
+      </div>
+
       {submitFailed && error && <span>{error}</span>}
 
       {fields.map((member, index) => (
@@ -29,16 +33,16 @@ let renderPosts = ({ fields, meta: { error, submitFailed } }) => {
               <div class="form-group">
                 <label
                   for="applicationFormUrl"
-                  class="col-6 text-light col-form-label"
+                  class="col-6 col-form-label"
                 >
                   Post #{index + 1} Post
                 </label>
                 <Field
                   name={`${member}.post`}
-                  class="col-12 form-control text-light bg-dark"
+                  class="col-12 form-control "
                   type="text"
                   component={renderInput}
-               //   onChange={(newValue) => postOnChange(newValue)}
+                //   onChange={(newValue) => postOnChange(newValue)}
                 />
               </div>
             </div>
@@ -46,7 +50,7 @@ let renderPosts = ({ fields, meta: { error, submitFailed } }) => {
               <div class="form-group">
                 <label
                   for="applicationFormUrl"
-                  class="col-12 text-light col-form-label"
+                  class="col-12 col-form-label"
                 >
                   Vacancy
                 </label>
@@ -58,34 +62,47 @@ let renderPosts = ({ fields, meta: { error, submitFailed } }) => {
                 />
               </div>
             </div>
-            <div class="col-3">
-              <div class="form-group">
-                <button
-                  type="button"
-                  class=" btn btn-warning text-light"
-                  title="Remove Member"
-                  onClick={() => fields.remove(index)}
-                >
-                  Remove Post
-                </button>
-              </div>
-            </div>
+
           </div>
 
           <div class="form-group">
             <label
               for="applicationFormUrl"
-              class="col-12 text-light col-form-label"
+              class="col-12 col-form-label"
             >
               Education
             </label>
-            <Field
-              name={`${member}.edu`}
-              class="form-control"
-              type="text"
-              component={renderTextarea}
-            />
+            <div class="form-group row">
+              <div class="col-sm-12">
+                <Field
+                  name={`${member}.edu`}
+                  class="form-control"
+                  type="text"
+                  component={renderTextarea}
+                />
+              </div>
+            </div>
+            <div class="col-12 bg-light">
+              <div class="form-group">
+                <button
+                  type="button"
+                  class="btn btn-warning text-light"
+                  title="Remove Member"
+                  onClick={() => fields.remove(index)}
+                >
+                  Remove Post
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-info float-right"
+                  onClick={() => fields.push({})}
+                >
+                  Add Post
+      </button>
+              </div>
+            </div>
           </div>
+
         </div>
       ))}
     </div>

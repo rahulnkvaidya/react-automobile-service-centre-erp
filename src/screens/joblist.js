@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import * as JobListAction from "../store/actions/jobListAction";
-
+import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { ToastContainer, toast } from "react-toastify";
@@ -39,7 +39,10 @@ const JobList = () => {
     newcp(pagination.previousPage);
     dispatch(JobListAction.fetchJoblist(pagination.previousPage));
   });
-
+  function UpdateTime(props) {
+    return <p>{moment(props.value).format('DD-MM-YYYY, hh:mm a')}</p>;
+  }
+ // var timeAgo = moment(this.props.message.createdAt).fromNow()
   if (_.isEmpty(data)) {
     return <div>loading..........</div>;
   } else {
@@ -57,7 +60,7 @@ const JobList = () => {
       shouldDisablenextButton = false;
     }
     return (
-      <div className="row p-2">
+      <div className="col-12 p-2">
         <ToastContainer
           enableMultiContainer
           containerId={"A"}
@@ -71,7 +74,7 @@ const JobList = () => {
           draggable
           pauseOnHover
         />
-        <div className="row">
+        <div className="row bg-white">
           <div className="col-12 mb-2 mt-2">
             <div className="col-12 p-1 border border-dark">
               <button
@@ -103,20 +106,20 @@ const JobList = () => {
             <div className="col-2 p-2">Function</div>
           </div>
         </div>
-        <div className="col-12 mt-2">
+        <div className="col-12 mt-2 ">
           {list.map((person, index) => (
-            <div className="row">
+            <div className="row border border-primary round-circle m-1 shadow">
               <div className="col-4 p-2">
               
                 <EditButton>{person._id}</EditButton>
                 <Logo>{person.logo}</Logo>
               </div>
-              <div className="col-4 p-2">
+              <div className="col-4 p-2 ">
                 {person.companyname},
-                <br /> Update time = {person.updated_at}
+                <br /> Update time = <UpdateTime value={person.updated_at} /> 
               </div>
               <div className="col-2 p-2">{person.lastdate}</div>
-              <div className="col-2 p-2">{person.schedule}</div>
+              <div className="col-2 p-2"><UpdateTime value={person.schedule} /></div>
             </div>
           ))}
         </div>

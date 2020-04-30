@@ -101,7 +101,7 @@ let CityAutoSuggest = ({  input, label, type, meta: { touched, error } }) => {
     <div col-12>
     <div style={{ color: "red", padding: "10px"}}>{ratnasugg}</div>
       <Autosuggest
-        // theme={Theam}
+      //   theme={Theam}
         suggestions={suggestions}
         onSuggestionsFetchRequested={onSuggestionsFetchRequested}
         onSuggestionsClearRequested={onSuggestionsClearRequested}

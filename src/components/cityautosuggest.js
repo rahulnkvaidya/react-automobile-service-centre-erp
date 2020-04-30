@@ -69,7 +69,7 @@ console.log(fav)
 
   var onChange = (event, { newValue }) => {
     console.log(newValue)
-    dispatch(CitySearchListAction.fetchCitylist(newValue));
+    dispatch(CitySearchListAction.StateSearch(newValue));
 
   //  console.log("new value =" + newValue);
     valueChange(newValue);
