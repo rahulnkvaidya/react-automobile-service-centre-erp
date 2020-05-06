@@ -8,8 +8,7 @@ import renderPosts from "../components/renderPosts";
 import renderTextarea from "../components/renderTextarea";
 import categoryMultiselect from "../components/categoryMultiselect";
 import educationMultiselect from "../components/educationMultiselect";
-import { ToastContainer, toast } from "react-toastify";
-import CityAutoSuggest from '../components/cityautosuggest';
+import { toast } from "react-toastify";
 import Companyautosuggest from "../components/CompanyAutoSuggest/companyautosuggest";
 
 let InitializeFromStateForm = (props) => {

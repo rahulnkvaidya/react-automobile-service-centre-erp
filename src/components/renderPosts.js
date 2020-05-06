@@ -82,6 +82,44 @@ let renderPosts = ({ fields, meta: { error, submitFailed } }) => {
                 />
               </div>
             </div>
+            <div class="form-group">
+              <div class="col-12">
+                <div class="form-group">
+                  <label
+                    for="applicationFormUrl"
+                    class="col-6 col-form-label"
+                  >
+                    Pay
+                </label>
+                  <Field
+                    name={`${member}.pay`}
+                    class="col-12 form-control "
+                    type="text"
+                    component={renderInput}
+                  //   onChange={(newValue) => postOnChange(newValue)}
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-12">
+                <div class="form-group">
+                  <label
+                    for="applicationFormUrl"
+                    class="col-6 col-form-label"
+                  >
+                    Age
+                </label>
+                  <Field
+                    name={`${member}.age`}
+                    class="col-12 form-control "
+                    type="text"
+                    component={renderInput}
+                  //   onChange={(newValue) => postOnChange(newValue)}
+                  />
+                </div>
+              </div>
+            </div>
             <div class="col-12 bg-light">
               <div class="form-group">
                 <button

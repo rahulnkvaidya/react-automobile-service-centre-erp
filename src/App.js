@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route } from "react-router-dom";
-import Home from "./screens/home";
-import searchList from "./screens/searchList";
+import Home from "./screens/searchList";
+import searchList from "./screens/home";
 import newjob from './screens/newjobs';
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -19,6 +19,8 @@ function App() {
         <Route path="/search" component={searchList} />
         <Route path="/newjob" component={newjob} />
         <Route path="/editjob/:jobid" component={EditJob} />
+        
+      
         <Footer />
       </div>
     </BrowserRouter>

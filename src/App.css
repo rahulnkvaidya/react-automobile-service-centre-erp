@@ -87,3 +87,9 @@
 .react-autosuggest__suggestion--focused {
   background-color: #ddd;
 }
+.main-wrapper {
+  height: 100vh;  
+}
+.sticky-offset {
+  top: 0px;
+}

@@ -6,7 +6,7 @@
     "type": "git",
     "url": "git+https://github.com/rahulnkvaidya/eni2-admin-react.git"
   },
-  "homepage": "http://rahulnkvaidya.github.io/eni2-admin-react",
+  "homepage": "/",
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",

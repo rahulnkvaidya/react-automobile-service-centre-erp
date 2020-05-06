@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 // import CityAutoSuggest from "../components/cityautosuggest";
 import Companyautosuggest from "../components/CompanyAutoSuggest/companyautosuggest";
 import * as PostAction from "../store/actions/postAction";
+import * as PostDetailAction from "../store/actions/postDetailAction";
 import _ from "lodash";
 import { title, description, keywords } from "../components/helperFunction";
 
@@ -34,7 +35,7 @@ let InitializeFromStateForm = (props) => {
   const [data, detail] = useState(initial);
   const [eduval, eduvalUpdate] = useState("");
   const [catval, catvalUpdate] = useState("");
-  const [post, postUpdate] = useState([]);
+  const [post, postUpdate] = useState("");
   const [lastpost, lastpostUpdate] = useState("");
 
   var statecity = useSelector((state) => state.cityData);
@@ -93,6 +94,12 @@ useEffect(()=>{
   useEffect(() => {
     detail(po);
   }, [po]);
+
+  var postDetail = useSelector((state) => state.postdetail);
+  useEffect(() => {
+    postUpdate(postDetail);
+    console.log('hello post = ', post)
+  }, [postDetail]);
   // console.log("post = ", po, data);
 
   // if (post === undefined) {
@@ -111,10 +118,10 @@ useEffect(()=>{
   }, [category]);
 
   // console.log('st =', props);
-  const autoPost = () => {
-    console.log(posts)
-    autofill("posts", [posts, { post: 'rahul', edu: 'rahul edu' }]);
-  }
+  // const autoPost = () => {
+  //   console.log('autoPost', post)
+  //   autofill("posts", [posts, { post: 'rahul', edu: 'rahul edu' }]);
+  // }
   const createMeta = () => {
     autofill("metaTitle", title(companyname, employmentnotice));
     autofill(
@@ -172,6 +179,12 @@ useEffect(()=>{
 
 
   };
+  let addPostData = (id) => {
+    dispatch(PostDetailAction.fetchPostDetail(id));
+    console.log('id selected', id)
+    console.log('autoPost', post)
+    autofill("posts", [...posts, { post: post.post, edu: post.edu, pay: post.pay, age: post.age }]);
+  }
   let PostRander = (props) => {
     var postsch = props.children;
     if (postsch === null) {
@@ -187,6 +200,13 @@ useEffect(()=>{
               </div>
               <div className="col-12 p-2">{person.post}</div>
               <div className="col-12 p-2"><div dangerouslySetInnerHTML={{ __html: person.edu }} /></div>
+              <button
+              type="button"
+              class="btn btn-warning  float-right m-2"
+              onClick={() => addPostData(person._id)}
+            >
+              Add Post
+        </button>
             </div>
           ))}
         </div>
@@ -195,15 +215,15 @@ useEffect(()=>{
   };
   let FormSubmit = (values) => {
     console.log("form Submit = ", values);
-    // axios.post(`https://www.employmentnewsinindia.com/api/v2/jobsave`, values)
-    // .then(function (response) {
-    //   console.log(response);
-    //   toast("New Job Sucess");
-    // })
-    // .catch(function (error) {
-    //   console.log(error);
-    //   toast(error);
-    // });
+    axios.post(`https://www.employmentnewsinindia.com/api/v2/jobsave`, values)
+    .then(function (response) {
+      console.log(response);
+      toast("New Job Sucess");
+    })
+    .catch(function (error) {
+      console.log(error);
+      toast(error);
+    });
   };
   return (
     <div>
@@ -211,13 +231,6 @@ useEffect(()=>{
         <div className="col-12 bg-info text-light shadow"><h1>New Job</h1></div>
         <div className="col-4 mb-5">
           <div className="col-12 mt-2">
-            <button
-              type="button"
-              class="btn btn-warning  float-right m-2"
-              onClick={autoPost}
-            >
-              Add Post
-        </button>
             <PostRander>{data}</PostRander>
           </div>
         </div>
