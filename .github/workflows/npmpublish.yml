@@ -3,9 +3,7 @@
 
 name: Node.js Package
 
-on:
-  release:
-    types: [push]
+on: [push]
 
 jobs:
   build:
@@ -17,7 +15,7 @@ jobs:
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-west-2
+        aws-region: ap-south-1
     - name: Build static site
     - run: npm install && npm run build
     - name: Deploy static site to S3 bucket
