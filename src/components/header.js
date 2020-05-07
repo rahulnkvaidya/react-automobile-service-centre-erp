@@ -1,6 +1,5 @@
 import React from 'react'
 import { NavLink } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const header = () => {
   return (
@@ -9,7 +8,7 @@ const header = () => {
         <ul className="navbar-nav">
           <li className="nav-item">
             <NavLink className="nav-link" to="/">
-              <FontAwesomeIcon icon="coffee" /> Home
+              Home
               </NavLink>
           </li>
           <li className="nav-item">
@@ -44,7 +43,7 @@ const header = () => {
           </li>
         </ul>
       </nav>
-      <FontAwesomeIcon icon="coffee" />
+      
     </div>
   )
 }
