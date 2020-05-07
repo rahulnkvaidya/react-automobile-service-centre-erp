@@ -19,8 +19,6 @@ function App() {
         <Route path="/search" component={searchList} />
         <Route path="/newjob" component={newjob} />
         <Route path="/editjob/:jobid" component={EditJob} />
-        
-      
         <Footer />
       </div>
     </BrowserRouter>
