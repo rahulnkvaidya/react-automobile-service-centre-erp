@@ -15,18 +15,13 @@ const JobList = () => {
   });
   const [data, detail] = useState([]);
   const [currentPage, newcp] = useState(0);
-  const [order, orderChange] = useState("asc");
   const dispatch = useDispatch();
 
-  const ResultOrder = useCallback(() => {
-    orderChange("desc");
-    // newcp(pagination.nextPage);
-    dispatch(JobListAction.fetchJoblist(pagination.nextPage, order));
-  });
+  var fav = useSelector((state) => state.jobList);
   useEffect(() => {
     dispatch(JobListAction.fetchJoblist(1));
   }, [dispatch, fav]);
-  var fav = useSelector((state) => state.jobList);
+
   console.log(fav);
   useEffect(() => {
     detail(fav);

@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Field, reduxForm, FieldArray, formValueSelector } from "redux-form";
-import * as JobListAction from "../store/actions/jobListAction";
+// import * as JobListAction from "../store/actions/jobListAction";
 import * as CityListAction from "../store/actions/cityAction";
 import { useSelector, useDispatch, connect } from "react-redux";
 import renderPosts from "../components/renderPosts";
 import renderTextarea from "../components/renderTextarea";
 import categoryMultiselect from "../components/categoryMultiselect";
 import educationMultiselect from "../components/educationMultiselect";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 // import CityAutoSuggest from "../components/cityautosuggest";
 import Companyautosuggest from "../components/CompanyAutoSuggest/companyautosuggest";
 import * as PostAction from "../store/actions/postAction";
 import * as PostDetailAction from "../store/actions/postDetailAction";
-import _ from "lodash";
+// import _ from "lodash";
 import { title, description, keywords } from "../components/helperFunction";
 
 let InitializeFromStateForm = (props) => {
@@ -44,9 +44,9 @@ let InitializeFromStateForm = (props) => {
     autofill,
     handleSubmit,
     pristine,
-    reset,
+ //   reset,
     submitting,
-    official_url,
+ //   official_url,
     companyname,
     employmentnotice,
     lastdate,
