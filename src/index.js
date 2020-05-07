@@ -11,6 +11,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import '../node_modules/react-toastify/dist/ReactToastify.css';
 import reducer from './store/reducer/reducer';
 import JobListReducer from './store/reducer/jobListReducer';
+import JobDetailReducer from './store/reducer/jobDetailReducer';
 import EditForm from './store/editForm';
 import companySearchReducer from './store/reducer/companySearchReducer';
 import ratnaReducer from './store/reducer/ratnaReducer';
@@ -23,6 +24,7 @@ const rootReducer = combineReducers({
     EditForm,
     red: reducer,
     jobList: JobListReducer,
+    job:JobDetailReducer,
     form: reduxFormReducer,
     companySearch: companySearchReducer,
     ratna: ratnaReducer,

@@ -217,7 +217,7 @@ useEffect(()=>{
     console.log("form Submit = ", values);
     axios.post(`https://www.employmentnewsinindia.com/api/v2/jobsave`, values)
     .then(function (response) {
-      console.log(response);
+      console.log('response = ', response);
       toast("New Job Sucess");
     })
     .catch(function (error) {
