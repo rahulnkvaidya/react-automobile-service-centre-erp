@@ -16,7 +16,7 @@ jobs:
         node-version: 12
     - name: npm Install
       run: |
-        npm install
+        npm ci
     - name: Production Build
       run: |
         npm run build
