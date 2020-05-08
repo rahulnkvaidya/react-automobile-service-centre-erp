@@ -5,6 +5,8 @@ const citylistReducer = (state = [], action) => {
       
         case STATE_SEARCH:
             return action.stateData;
+        default:
+            break;
     }
     return state;
   };

@@ -3,7 +3,8 @@ import * as SearchJob from "../store/actions/searchAction";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { ToastContainer, toast } from "react-toastify";
-import { getPager } from "../components/pagination";
+// import { getPager } from "../components/pagination";
+import { getPager } from "@rahulnkvaidya/rps-function";
 
 const ComplexList = () => {
   toast.configure({
@@ -21,6 +22,7 @@ const ComplexList = () => {
     // newcp(pagination.nextPage);
     dispatch(SearchJob.fetchSearchlist(pagination.nextPage, order));
   });
+
   useEffect(() => {
     dispatch(SearchJob.fetchSearchlist(0, order));
   }, [dispatch, fav]);
@@ -56,7 +58,7 @@ const ComplexList = () => {
       shouldDisablenextButton = false;
     }
     return (
-      <div className="row p-2">
+      <div className="row p-2 pt-4 mt-4">
         <ToastContainer
           enableMultiContainer
           containerId={"A"}

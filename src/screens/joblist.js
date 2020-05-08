@@ -4,7 +4,8 @@ import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import _ from "lodash";
 import { ToastContainer, toast } from "react-toastify";
-import { getPager } from "../components/pagination";
+// import { getPager } from "../components/pagination";
+import { getPager } from "@rahulnkvaidya/rps-function";
 import Logo from '../components/logo';
 import EditButton from '../components/editButton';
 const JobList = () => {
@@ -17,11 +18,11 @@ const JobList = () => {
   const [currentPage, newcp] = useState(0);
   const dispatch = useDispatch();
 
-  var fav = useSelector((state) => state.jobList);
+
   useEffect(() => {
     dispatch(JobListAction.fetchJoblist(1));
   }, [dispatch, fav]);
-
+  var fav = useSelector((state) => state.jobList);
   console.log(fav);
   useEffect(() => {
     detail(fav);
@@ -55,7 +56,7 @@ const JobList = () => {
       shouldDisablenextButton = false;
     }
     return (
-      <div className="col-12 p-2">
+      <div className="col-12 p-2 pt-5 mt-5 ">
         <ToastContainer
           enableMultiContainer
           containerId={"A"}

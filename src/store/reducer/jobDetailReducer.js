@@ -4,8 +4,10 @@ const joblistReducer = (state = [], action) => {
     switch (action.type) {
         case JOB_DETAIL:
             return action.job;
+        default:
+            break;
     }
     return state;
-  };
-  
-  export default joblistReducer;
+};
+
+export default joblistReducer;

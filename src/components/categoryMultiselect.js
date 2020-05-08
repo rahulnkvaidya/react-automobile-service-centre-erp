@@ -7,7 +7,8 @@ export default function categoryMultiselect({ input }) {
     const values = input.value;
     let selectedvalue = [];
     Object.keys(values).map((key, index) => {
-        selectedvalue.push({ name: values[key].category, id: values[key].cat_url }) 
+        selectedvalue.push({ name: values[key].category, id: values[key].cat_url });
+        return null;
     });
     const onSelect = (optionsList, selectedItem) => {
       console.log(selectedvalue);

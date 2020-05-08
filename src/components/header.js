@@ -38,7 +38,7 @@ const header = () => {
           </li>
 
           <li className="nav-item">
-            <a className="nav-link" href="https://www.employmentnewsinindia.com/api/remover" target="_blank">Remover</a>
+            <a className="nav-link" href="https://www.employmentnewsinindia.com/api/remover" rel="noopener noreferrer" target="_blank">Remover</a>
 
           </li>
         </ul>

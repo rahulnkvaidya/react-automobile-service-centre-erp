@@ -14,7 +14,7 @@ import Companyautosuggest from "../components/CompanyAutoSuggest/companyautosugg
 import * as PostAction from "../store/actions/postAction";
 import * as PostDetailAction from "../store/actions/postDetailAction";
 // import _ from "lodash";
-import { title, description, keywords } from "../components/helperFunction";
+import { metaTitle, metaDescription, metaKeywords } from "@rahulnkvaidya/rps-function";
 
 let InitializeFromStateForm = (props) => {
   const dispatch = useDispatch();
@@ -123,14 +123,14 @@ useEffect(()=>{
   //   autofill("posts", [posts, { post: 'rahul', edu: 'rahul edu' }]);
   // }
   const createMeta = () => {
-    autofill("metaTitle", title(companyname, employmentnotice));
+    autofill("metaTitle", metaTitle(companyname, employmentnotice));
     autofill(
       "metaDescription",
-      description(companyname, employmentnotice, lastdate)
+      metaDescription(companyname, employmentnotice, lastdate)
     );
     autofill(
       "metaKeyword",
-      keywords(
+      metaKeywords(
         companyname,
         employmentnotice,
         edu,
@@ -227,7 +227,7 @@ useEffect(()=>{
   };
   return (
     <div>
-      <div class="row">
+      <div class="row pt-4 mt-4">
         <div className="col-12 bg-info text-light shadow"><h1>New Job</h1></div>
         <div className="col-4 mb-5">
           <div className="col-12 mt-2">
@@ -330,7 +330,6 @@ useEffect(()=>{
                       type="text"
                       class="form-control  "
                       component={renderTextarea}
-                      type="text"
                     />
                   </div>
                 </div>
@@ -345,7 +344,6 @@ useEffect(()=>{
                       name="howToApply"
                       class="form-control  "
                       component={renderTextarea}
-                      type="text"
                     />
                   </div>
                 </div>

@@ -1,6 +1,6 @@
 import Autosuggest from "react-autosuggest";
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import * as CitySearchListAction from "../store/actions/cityAction";
 import * as RatnaAction from "../store/actions/ratnaAction";
 import _ from "lodash";
@@ -17,7 +17,6 @@ let CityAutoSuggest = ({  input, label, type, meta: { touched, error } }) => {
   //
   const [suggestions, suggestionsChange] = useState([]);
   const [companyList, updateList] = useState([]);
-  const [ratnalist, updateRatna] = useState([]);
   const [ratnasugg, Updateratnasugg] = useState("");
 
   var fav = useSelector((state) => state.cityData);

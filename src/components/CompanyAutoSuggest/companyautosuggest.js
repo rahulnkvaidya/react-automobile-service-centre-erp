@@ -1,6 +1,6 @@
 import Autosuggest from "react-autosuggest";
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
+import { useSelector, useDispatch} from "react-redux";
 import * as CompanySearchListAction from "../../store/actions/companySearchAction";
 import * as RatnaAction from "../../store/actions/ratnaAction";
 import _ from "lodash";
@@ -13,7 +13,7 @@ let CityAutoSuggest = ({  input, label, type, meta: { touched, error } }) => {
   const [value, valueChange] = useState('');
   useEffect(() => {
     valueChange(invalue);
-  }, [input.value]);
+  }, [input.value, invalue]);
   //
   const [suggestions, suggestionsChange] = useState([]);
   const [companyList, updateList] = useState([]);
@@ -24,7 +24,6 @@ let CityAutoSuggest = ({  input, label, type, meta: { touched, error } }) => {
   var ratna = useSelector((state) => state.ratna);
 
   useEffect(() => {
-    
     updateList(fav);
   }, [fav]);
   useEffect(() => {
@@ -35,7 +34,7 @@ let CityAutoSuggest = ({  input, label, type, meta: { touched, error } }) => {
     const ratnafir = ratnalist[0]
     const rat = _.valuesIn(ratnafir, suggestions);
     Updateratnasugg(rat[2]);
-  }, [ratnalist]);
+  }, [ratnalist, suggestions]);
 
   var onSelectSugg = (
     event,

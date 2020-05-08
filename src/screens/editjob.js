@@ -16,18 +16,19 @@ let InitializeFromStateForm = (props) => {
   const [data, detail] = useState([]);
  
   // console.log(props);
-  const { handleSubmit, load, pristine, reset, submitting } = props;
+  const { handleSubmit, load, pristine, submitting } = props;
   const dispatch = useDispatch();
   var jobid = props.match.params.jobid;
   //// fatch job by id
+  var fav = useSelector((state) => state.job);
   useEffect(() => {
     console.log(jobid);
     dispatch(jobDetailAction.fetchJobDetail(jobid));
     
-  }, [dispatch, fav]);
+  }, [dispatch, fav, jobid]);
 
   //  get job detail form reducer ///////
-  var fav = useSelector((state) => state.job);
+  
    useEffect(() => {
      detail(fav);
    }, [fav]);
@@ -167,7 +168,6 @@ let InitializeFromStateForm = (props) => {
                     type="text"
                     class="form-control  "
                     component={renderTextarea}
-                    type="text"
                   />
                 </div>
                 
@@ -180,7 +180,6 @@ let InitializeFromStateForm = (props) => {
                     name="howToApply"
                     class="form-control  "
                     component={renderTextarea}
-                    type="text"
                   />
                 </div>
 
@@ -404,7 +403,6 @@ let InitializeFromStateForm = (props) => {
                       type="datetime-local"
                       class="form-control  "
                       component="input"
-                      type="text"
                     />
                   </div>
                 </div>
