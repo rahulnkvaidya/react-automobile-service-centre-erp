@@ -1,0 +1,22 @@
+{
+    "eniiadmin": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-eni2adminreact-eniiadmin-220848-authRole",
+            "UnauthRoleArn": "arn:aws:iam::642744870597:role/amplify-eni2adminreact-eniiadmin-220848-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::642744870597:role/amplify-eni2adminreact-eniiadmin-220848-authRole",
+            "Region": "ap-south-1",
+            "DeploymentBucketName": "amplify-eni2adminreact-eniiadmin-220848-deployment",
+            "UnauthRoleName": "amplify-eni2adminreact-eniiadmin-220848-unauthRole",
+            "StackName": "amplify-eni2adminreact-eniiadmin-220848",
+            "StackId": "arn:aws:cloudformation:ap-south-1:642744870597:stack/amplify-eni2adminreact-eniiadmin-220848/669c53f0-914a-11ea-9a6f-02f99c428a3a",
+            "AmplifyAppId": "d1n0au0danf2fi"
+        },
+        "categories": {
+            "auth": {
+                "eni2adminreactd3cf7854": {
+                    "hostedUIProviderCreds": "[]"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "auth": {
+        "eni2adminreactd3cf7854": {
+            "service": "Cognito",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [],
+            "customAuth": false
+        }
+    }
+}

@@ -1,5 +1,7 @@
 import React from 'react'
 import { NavLink } from "react-router-dom";
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import Amplify, { Auth, API } from 'aws-amplify';
 
 const header = () => {
   return (
@@ -36,10 +38,14 @@ const header = () => {
               Contact Us
               </NavLink>
           </li>
-
+          
           <li className="nav-item">
             <a className="nav-link" href="https://www.employmentnewsinindia.com/api/remover" rel="noopener noreferrer" target="_blank">Remover</a>
 
+          </li>
+          <li className="nav-item float-right" >
+              
+             <AmplifySignOut />
           </li>
         </ul>
       </nav>
