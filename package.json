@@ -9,11 +9,10 @@
   "homepage": "/",
   "dependencies": {
     "@aws-amplify/ui-react": "^0.2.13",
-    "@rahulnkvaidya/rps-function": "^1.0.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.1.2",
-    "aws-amplify": "^3.0.22",
+    "aws-amplify": "^3.0.24",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.1",
     "ckeditor4-react": "^1.1.1",
