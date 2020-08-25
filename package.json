@@ -4,7 +4,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rahulnkvaidya/eni2-admin-react.git"
+    "url": "git+https://github.com/rahulnkvaidya/react-automobile-service-centre-erp.git"
   },
   "homepage": "/",
   "dependencies": {
